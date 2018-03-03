@@ -4,13 +4,19 @@ const silverTier   = "silver"
 
 const platinumDelay = 0
 const goldDelay     = 3000  // 3 seconds
-const silverDelay   = 7000 // 7 seconds
+const silverDelay   = 0 // 7 seconds
 
 const platinumSiteLimit = Number.MAX_SAFE_INTEGER // Basically no limit for platinum
 const goldSiteLimit     = 200  // 200 page loads a day
 const silverSiteLimit   = 25 // 25 page loads a day
 
 const silverCensorList = ["Comcast", "Xfinity", "Spectrum", "Verizon"] // Block all sites that contain these words
+
+const silverRedirectList = {
+	"bing": "yahoo",   
+	"netflix": "hbogo",
+	"youtube": "vimeo"
+}
 
 var beginRedactText = "<span style='color: black; background-color: black; white-space:nowrap; border:1px dotted #555; background: -moz-linear-gradient(180deg, #000, #222);'>"
 var endRedactText = "</span>"
@@ -95,6 +101,7 @@ function silverHandler () {
 		dataCapper(silverTier);
 	}, 1);
 
+	redirectHandler(silverRedirectList);
 	censorHandler(silverTier);
 }
 
@@ -192,6 +199,21 @@ function censor(node, censorList) {
       		censor(node.childNodes[i], censorList);
     	}
   	}
+}
+
+/*
+ *  If the site a user is visiting is in the redirectList, then redirect it
+ *  to that site.
+ */
+function redirectHandler(redirectList) {
+	var domain = window.location.hostname;
+	domain = domain.replace("www.", "").replace(".com", "")
+
+	console.log(domain)
+	console.log(redirectList[domain])
+    if (domain in redirectList) {
+    	window.location.replace("http://www." + redirectList[domain] + ".com")
+    }
 }
 
 
