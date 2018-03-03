@@ -12,6 +12,7 @@
     { 
       "matches": [ "*://*/*" ],
       "js":[ "simulator.js" ]
+      
     }],
 
   "permissions": [ "activeTab", "storage", "webNavigation", "tabs"]

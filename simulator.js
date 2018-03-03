@@ -2,6 +2,10 @@ const platinumTier = "platinum"
 const goldTier     = "gold"
 const silverTier   = "silver"
 
+const platinumDelay = 0
+const goldDelay     = 3000  // 3 seconds
+const silverDelay   = 7000 // 7 seconds
+
 getTier(tierHandler);
 
 /*
@@ -25,6 +29,8 @@ function getTier (callback) {
 
 function tierHandler (tier) {
 
+	slowPage(tier);
+    
     if (tier === silverTier) {
         silverHandler();
     } else if (tier == goldTier) {
@@ -36,8 +42,32 @@ function tierHandler (tier) {
 
 }
 
+
+function slowPage (tier) {
+
+	var body = document.body.cloneNode(true);
+
+	document.body.innerHTML = '<h1 style="padding-top: 100px; text-align: center; font-size: 60px;"> Loading... </h1>' + '<p style="padding: 50px; text-align: center; font-size: 30px;">To increase speeds, please upgrade to a faster tier.</p>'
+
+	setTimeout(function () {
+		document.body = body
+	}, tierToSeconds(tier));
+}
+
+function tierToSeconds (tier) {
+	if (tier == silverTier) {
+		return silverDelay;
+	} else if (tier == goldTier) {
+		return goldDelay;
+	} else {
+		return platinumDelay;
+	}
+
+}
+
 function silverHandler () {
     
+
     // First do all the restrictions of the tiers above it
     platinumHandler();
     goldHandler();
