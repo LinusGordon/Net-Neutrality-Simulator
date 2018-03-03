@@ -5,10 +5,13 @@ Chrome extension to simulate possible outcomes of the net neutrality repeal.
 - Tier system
 - Slower loading
 - Data capping
+- Censor competitors or even topics
+   - any site containing the words "Comcast", "Xfinity", "Verizon", etc. are blocked
+   - this could be the case if your ISP provider decided to block content from its competitors 
+
 
 ## Posible future features
 - Redirect to different sites
-- Censor competitors or even topics
 
 ## Possible tier system
 
