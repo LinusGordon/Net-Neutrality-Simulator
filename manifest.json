@@ -12,5 +12,5 @@
          "matches": [ "<all_urls>"   ],
          "js":[ "simulator.js" ]
   }],
-  "permissions": [ "activeTab" ]
+  "permissions": [ "activeTab", "storage" ]
 }
