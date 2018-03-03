@@ -4,7 +4,7 @@ const silverTier   = "silver"
 
 const platinumDelay = 0
 const goldDelay     = 3000  // 3 seconds
-const silverDelay   = 0 // 7 seconds
+const silverDelay   = 7000 // 7 seconds
 
 const platinumSiteLimit = Number.MAX_SAFE_INTEGER // Basically no limit for platinum
 const goldSiteLimit     = 200  // 200 page loads a day
