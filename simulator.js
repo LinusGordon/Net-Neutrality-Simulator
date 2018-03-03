@@ -4,11 +4,13 @@ const silverTier   = "silver"
 
 const platinumDelay = 0
 const goldDelay     = 3000  // 3 seconds
-const silverDelay   = 0 // 7 seconds
+const silverDelay   = 7000 // 7 seconds
 
 const platinumSiteLimit = Number.MAX_SAFE_INTEGER // Basically no limit for platinum
 const goldSiteLimit     = 200  // 200 page loads a day
 const silverSiteLimit   = 25 // 25 page loads a day
+
+const silverCensorList = ["Comcast"] // Block all sites that contain these words
 
 var beginRedactText = "<span style='color: black; background-color: black; white-space:nowrap; border:1px dotted #555; background: -moz-linear-gradient(180deg, #000, #222);'>"
 var endRedactText = "</span>"
@@ -93,7 +95,7 @@ function silverHandler () {
 		dataCapper(silverTier);
 	}, 1);
 
-	redactText(silverTier);
+	censorHandler(silverTier);
 }
 
 /*
@@ -166,22 +168,28 @@ function reachedLimit (count, tier) {
 	}
 }
 
-function redactText(tier) {
+/* 
+ * Censors webpage AFTER the loading screen goes away.
+ */ 
+function censorHandler(tier) {
 	setTimeout(function () {	
-		console.log("hey");
-		censorAllInstances(document.body, "Comcast", "Comcast")	
+		censor(document.body, silverCensorList)	
 	}, tierDelay(tier) + 10);
 }
 
-function censorAllInstances(node, replacee, replacer) {
+/* Blocks the site for censorship if a word is found on the webpage that
+ * is contained in the censorList
+ */
+function censor(node, censorList) {
 	if (node.nodeType == 3) {
-		if (node.data.indexOf('Comcast') >= 0) {
-			blockSiteForCensorship();
-		}
+		for (var i = 0; i < censorList.length; i++)
+			if (node.data.indexOf(censorList[i]) >= 0) {
+				blockSiteForCensorship();
+			}
   	}
   	if (node.nodeType == 1 && node.nodeName != "SCRIPT") {
     	for (var i = 0; i < node.childNodes.length; i++) {
-      		censorAllInstances(node.childNodes[i]);
+      		censor(node.childNodes[i], censorList);
     	}
   	}
 }
