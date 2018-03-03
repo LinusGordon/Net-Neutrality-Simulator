@@ -1,10 +1,6 @@
-const platinumTier = "platinum"
-const goldTier     = "gold"
-const silverTier   = "silver"
-
 document.addEventListener('DOMContentLoaded', function() {
     
-    getTier(tierHandler);
+    checkRadio();
     setTier();
 });
     
@@ -12,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
  * Get the tier and select it on the radio buttons.
  * If it doesn't exist yet (first time user) then make it platinum
  */
-function getTier (callback) {
+function checkRadio () {
 
     chrome.storage.sync.get("tier", function (obj) { 
                                         var tier;
@@ -23,7 +19,6 @@ function getTier (callback) {
                                             tier = obj["tier"]
                                         }
                                         document.getElementById(tier).checked = true;
-                                        callback(tier);
                                     });
 }
 
@@ -46,53 +41,3 @@ function setTier () {
         };
     }
 }
-
-function tierHandler (tier) {
-
-    if (tier === silverTier) {
-        silverHandler();
-    } else if (tier == goldTier) {
-        goldHandler();
-    } else {
-        platinumHandler();
-    }
-
-}
-
-function silverHandler () {
-    alert("silver");
-}
-
-function goldHandler () {
-    alert("gold");
-}
-
-/* 
- *  Does nothing.
- *  The idea of the platinum tier is that you browse the Internet as it stands today.
- */
-function platinumHandler () {
-    return;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
