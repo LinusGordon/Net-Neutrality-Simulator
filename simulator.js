@@ -223,6 +223,7 @@ function restrictAccess(restrictedList) {
 
 	for (var i = 0; i < restrictedList.length; i++) {
 	    if (domain.search(restrictedList[i]) >= 0) {
+	    	console.log(restrictedList[i], domain);
 	    	restrictSite();
 	    }	
 	}
