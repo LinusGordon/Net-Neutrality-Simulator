@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+
+  "name": "Net Neutrality Simulator",
+  "description": "Simulate possible outcomes of the net neutrality repeal",
+  "version": "1.0",
+
+  "browser_action": {
+   "default_popup": "popup.html"
+  },
+  "content_scripts": [{
+         "matches": [ "<all_urls>"   ],
+         "js":[ "simulator.js" ]
+  }],
+  "permissions": [ "activeTab" ]
+}
