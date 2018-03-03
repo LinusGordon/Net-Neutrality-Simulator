@@ -10,7 +10,7 @@ const platinumSiteLimit = Number.MAX_SAFE_INTEGER // Basically no limit for plat
 const goldSiteLimit     = 200  // 200 page loads a day
 const silverSiteLimit   = 25 // 25 page loads a day
 
-const silverCensorList = ["Comcast"] // Block all sites that contain these words
+const silverCensorList = ["Comcast", "Xfinity", "Spectrum", "Verizon"] // Block all sites that contain these words
 
 var beginRedactText = "<span style='color: black; background-color: black; white-space:nowrap; border:1px dotted #555; background: -moz-linear-gradient(180deg, #000, #222);'>"
 var endRedactText = "</span>"
