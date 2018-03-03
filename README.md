@@ -1,17 +1,20 @@
 # Net-Neutrality-Simulator
 Chrome extension to simulate possible outcomes of the net neutrality repeal. 
 
-## Posible features
+## Completed features
 - Tier system
 - Slower loading
+- Data capping
+
+## Posible future features
 - Redirect to different sites
 - Censor competitors or even topics
-- Data capping
 
 ## Possible tier system
 
 #### Platinum Tier 
 - normal Internet browsing
+
 #### Gold Tier 
 - Slower connection
 - censorship of competitors
@@ -22,6 +25,7 @@ Chrome extension to simulate possible outcomes of the net neutrality repeal.
     - HBO Go
     
 - data capping at 50 sites per day
+
 #### Silver Tier 
 - Even slower connection
 - censorship of competitors
