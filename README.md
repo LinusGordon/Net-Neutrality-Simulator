@@ -10,6 +10,7 @@ Chrome extension to simulate possible outcomes of the net neutrality repeal.
    - this could be the case if your ISP provider decided to block content from its competitors 
 - Redirect to different sites
    - redirects users from Netflix to HBO Go, Youtube to Vimeo, etc. depending on your tier
+- Block sites based on your tier (similar to packages)
 
 ## Posible future features
 
