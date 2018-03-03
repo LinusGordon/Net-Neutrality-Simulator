@@ -41,11 +41,11 @@ function silverHandler () {
     // First do all the restrictions of the tiers above it
     platinumHandler();
     goldHandler();
-    alert("silver")
+    console.log("silver");
 }
 
 function goldHandler () {
-    alert("gold");
+	console.log("gold");
 }
 
 /* 
