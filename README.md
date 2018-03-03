@@ -8,10 +8,10 @@ Chrome extension to simulate possible outcomes of the net neutrality repeal.
 - Censor competitors or even topics
    - any site containing the words "Comcast", "Xfinity", "Verizon", etc. are blocked
    - this could be the case if your ISP provider decided to block content from its competitors 
-
+- Redirect to different sites
+   - redirects users from Netflix to HBO Go, Youtube to Vimeo, etc. depending on your tier
 
 ## Posible future features
-- Redirect to different sites
 
 ## Possible tier system
 
