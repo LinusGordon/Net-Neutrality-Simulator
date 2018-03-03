@@ -14,6 +14,7 @@ function checkRadio () {
                                         var tier;
                                         if (obj == undefined) {
                                             chrome.storage.sync.set({ "tier" : "platinum" }, function () {});
+                                            chrome.storage.sync.set({ "siteCount" : 1}, function () {});
                                             tier = "platinum";
                                         } else {
                                             tier = obj["tier"]
