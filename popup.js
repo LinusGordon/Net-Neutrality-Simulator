@@ -1,3 +1,7 @@
+const platinumTier = "platinum"
+const goldTier     = "gold"
+const silverTier   = "silver"
+
 document.addEventListener('DOMContentLoaded', function() {
     
     getTier(tierHandler);
@@ -44,5 +48,51 @@ function setTier () {
 }
 
 function tierHandler (tier) {
-    console.log(tier);
+
+    if (tier === silverTier) {
+        silverHandler();
+    } else if (tier == goldTier) {
+        goldHandler();
+    } else {
+        platinumHandler();
+    }
+
 }
+
+function silverHandler () {
+    alert("silver");
+}
+
+function goldHandler () {
+    alert("gold");
+}
+
+/* 
+ *  Does nothing.
+ *  The idea of the platinum tier is that you browse the Internet as it stands today.
+ */
+function platinumHandler () {
+    return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
