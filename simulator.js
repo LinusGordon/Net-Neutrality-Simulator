@@ -4,11 +4,14 @@ const silverTier   = "silver"
 
 const platinumDelay = 0
 const goldDelay     = 3000  // 3 seconds
-const silverDelay   = 7000 // 7 seconds
+const silverDelay   = 0 // 7 seconds
 
 const platinumSiteLimit = Number.MAX_SAFE_INTEGER // Basically no limit for platinum
 const goldSiteLimit     = 200  // 200 page loads a day
 const silverSiteLimit   = 25 // 25 page loads a day
+
+var beginRedactText = "<span style='color: black; background-color: black; white-space:nowrap; border:1px dotted #555; background: -moz-linear-gradient(180deg, #000, #222);'>"
+var endRedactText = "</span>"
 
 getTier(tierHandler);
 
@@ -36,18 +39,15 @@ function getTier (callback) {
  */
 function tierHandler (tier) {
 
-	slowPage(tier);
-
-	setTimeout(function() {
-		dataCapper(tier);
-	}, 1);
+	if (tier == platinumTier) {
+		platinumHandler();
+		return;
+	}
 
     if (tier === silverTier) {
         silverHandler();
     } else if (tier == goldTier) {
         goldHandler();
-    } else {
-        platinumHandler();
     }
 
 }
@@ -87,18 +87,24 @@ function tierDelay (tier) {
  */
 function silverHandler () {
     
+	slowPage(silverTier);
 
-    // First do all the restrictions of the tiers above it
-    platinumHandler();
-    goldHandler();
-    console.log("silver");
+	setTimeout(function() {
+		dataCapper(silverTier);
+	}, 1);
+
+	redactText(silverTier);
 }
 
 /*
  * Handles the gold tier
  */
 function goldHandler () {
-	console.log("gold");
+	slowPage(goldTier);
+
+	setTimeout(function() {
+		dataCapper(goldTier);
+	}, 1);
 }
 
 /* 
@@ -125,7 +131,7 @@ function dataCapper (tier) {
                                         }
 
                                         if (reachedLimit(count, tier)) {
-                                        	blockSite();
+                                        	blockSiteForDataCap();
                                         }
                                         
                                     });	
@@ -137,9 +143,13 @@ function dataCapper (tier) {
  * Note: I reset the site count back to 0 so that users can actually play around 
  * with this extension and aren't actually stuck for the rest of the day.
  */
-function blockSite() {
+function blockSiteForDataCap() {
 	document.body.innerHTML = '<h1 style="padding-top: 100px; text-align: center; font-size: 60px;"> Data Cap Reached</h1>' + '<p style="padding: 50px; text-align: center; font-size: 30px;">You have reached your daily data cap. Please upgrade your tier to get more data.</p>'
     chrome.storage.sync.set({ "siteCount" : 0}, function () {});
+}
+
+function blockSiteForCensorship() {
+	document.body.innerHTML = '<h1 style="padding-top: 100px; text-align: center; font-size: 60px; color: red"> This site is blocked</h1>' + '<p style="padding: 50px; padding-bottom: 20px; text-align: center; font-size: 30px;">This site contains content that violates our user agreement.</p>' + '<p style="text-align: center; font-size: 30px;">Please upgrade your tier for unrestriced Internet access.</p>'
 }
 
 /*
@@ -156,17 +166,29 @@ function reachedLimit (count, tier) {
 	}
 }
 
+function redactText(tier) {
+	setTimeout(function () {	
+		console.log("hey");
+		censorAllInstances(document.body, "Comcast", "Comcast")	
+	}, tierDelay(tier) + 10);
+}
+
+function censorAllInstances(node, replacee, replacer) {
+	if (node.nodeType == 3) {
+		if (node.data.indexOf('Comcast') >= 0) {
+			blockSiteForCensorship();
+		}
+  	}
+  	if (node.nodeType == 1 && node.nodeName != "SCRIPT") {
+    	for (var i = 0; i < node.childNodes.length; i++) {
+      		censorAllInstances(node.childNodes[i]);
+    	}
+  	}
+}
 
 
 
-
-
-
-
-
-
-
-
+	
 
 
 
