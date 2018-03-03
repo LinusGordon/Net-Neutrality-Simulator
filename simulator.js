@@ -18,8 +18,8 @@ const silverRedirectList = {
 	"youtube": "vimeo"
 }
 
-var beginRedactText = "<span style='color: black; background-color: black; white-space:nowrap; border:1px dotted #555; background: -moz-linear-gradient(180deg, #000, #222);'>"
-var endRedactText = "</span>"
+const goldRestrictedAccessList = ["instagram", "netflix", "hbogo"];
+const silverRestrictedAccessList = ["wikipedia", "facebook", "amazon", "reddit"].concat(goldRestrictedAccessList);
 
 getTier(tierHandler);
 
@@ -99,6 +99,7 @@ function silverHandler () {
 
 	setTimeout(function() {
 		dataCapper(silverTier);
+		restrictAccess(silverRestrictedAccessList);
 	}, 1);
 
 	redirectHandler(silverRedirectList);
@@ -113,7 +114,9 @@ function goldHandler () {
 
 	setTimeout(function() {
 		dataCapper(goldTier);
+		restrictAccess(goldRestrictedAccessList);
 	}, 1);
+
 }
 
 /* 
@@ -207,18 +210,27 @@ function censor(node, censorList) {
  */
 function redirectHandler(redirectList) {
 	var domain = window.location.hostname;
-	domain = domain.replace("www.", "").replace(".com", "")
+	domain = domain.replace("www.", "").replace(".com", "").split("/")[0]
 
-	console.log(domain)
-	console.log(redirectList[domain])
     if (domain in redirectList) {
     	window.location.replace("http://www." + redirectList[domain] + ".com")
     }
 }
 
+function restrictAccess(restrictedList) {
+	var domain = window.location.hostname;
+	domain = domain.replace("www", "").replace(".", "").replace(".", "").split("/")[0]
 
+	for (var i = 0; i < restrictedList.length; i++) {
+	    if (domain.search(restrictedList[i]) >= 0) {
+	    	restrictSite();
+	    }	
+	}
+}
 
-	
+function restrictSite() {
+	document.body.innerHTML = '<h1 style="padding-top: 100px; text-align: center; font-size: 60px; color: red"> This site is blocked</h1>' + '<p style="padding: 50px; padding-bottom: 20px; text-align: center; font-size: 30px;">Your tier currently does not support access to this site.</p>' + '<p style="text-align: center; font-size: 30px;">Please upgrade your tier for unrestriced Internet access.</p>'
+}
 
 
 
